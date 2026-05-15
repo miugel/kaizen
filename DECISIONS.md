@@ -17,3 +17,7 @@ If I weren't time boxed, I would look at revamping the UX including updating the
 I would also improve test coverage and build a more robust test suite out including unit tests, end to end tests, and visual regression tests to ensure the health of our app and make sure changes introduced do not cause incidents.
 
 Lastly, I would implement observability/experimentation config. This would also help with ensuring the health of our app, but also act as insight into how users are interacting with our app and where the gaps in our flow are. This analytics data can then be used to fuel future product decisions and roadmap. Implementing an experiment service would also help us quickly run tests and deliver versions of features to different users to see what they are getting more value out of, continuing this trend of data-driven decisions.
+
+# Bonus
+
+In terms of the UX, I would add a landing page and improve the date selection/filter flow. As it stands, the user is overwhelmed with information as soon as they visit the crowded app. Adding a landing page would abstract the date and filter decision making away from the bloated user interface and make for a better user experience. More specifically, I would also update the filter experience. For example, if you select a start date that is greater than your end date, the end date should ideally update or there should be a concept of null states. I think small things like that matter for a very pleasant user experience.
