@@ -14,3 +14,10 @@ product reqs:
 - lets have a banner on the search page, where we show the discount they would be getting
 - lets also have a small banner on the checkout page with the same
 - and obv have the correct price reflected on getQuote endpoint given the dates and outlined rules
+**
+lets add a test suite for the discount logic using vitest. include these test cases:
+- no discount
+- holiday rental
+- long rental
+- discount hierarchy, if both discount applied, ensure the better one wins
+- all four combinations for getApplicableDiscountTypes (none, holiday only, long rental only, both)
