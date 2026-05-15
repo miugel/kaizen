@@ -21,3 +21,5 @@ lets add a test suite for the discount logic using vitest. include these test ca
 - long rental
 - discount hierarchy, if both discount applied, ensure the better one wins
 - all four combinations for getApplicableDiscountTypes (none, holiday only, long rental only, both)
+**
+anything glaring that you would fix with our code, including things that were already there from the initial files?

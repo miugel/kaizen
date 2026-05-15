@@ -11,10 +11,7 @@ const parseAndValidateTimeRange = (startTime: string, endTime: string) => {
   const start = DateTime.fromISO(startTime);
   const end = DateTime.fromISO(endTime);
 
-  if (
-    start.toString() === "Invalid Date" ||
-    end.toString() === "Invalid Date"
-  ) {
+  if (!start.isValid || !end.isValid) {
     throw new Error(
       "BAD REQUEST: Invalid date format. Please use ISO 8601 format.",
     );
@@ -25,7 +22,6 @@ const parseAndValidateTimeRange = (startTime: string, endTime: string) => {
   }
   return { start, end };
 };
-
 
 const validateReservationAndGetVehicle = (input: {
   vehicleId: string;
@@ -63,9 +59,6 @@ function searchVehicles(input: {
     priceMax,
   } = input;
 
-  const parsedPriceMin = priceMin;
-  const parsedPriceMax = priceMax;
-
   try {
     const { start, end } = parseAndValidateTimeRange(startTime, endTime);
 
@@ -75,8 +68,8 @@ function searchVehicles(input: {
       passengerCount,
       classifications,
       makes,
-      priceMinDollars: parsedPriceMin,
-      priceMaxDollars: parsedPriceMax,
+      priceMinDollars: priceMin,
+      priceMaxDollars: priceMax,
     });
 
     return {
