@@ -1,7 +1,11 @@
 read whole repo to get context
-**
+
+--------------------------------------------------------------------------------------------------------
+
 lets update the range of values for the slider. i say we take the max value of the cars returned, and set the upper bound to that
-**
+
+--------------------------------------------------------------------------------------------------------
+
 lets add rules for calculating the price on both the client and server (looks like api endpoint getQuote), lets create a shared util for these rules that can be used for both applications, and easily extendable with additional rules. the rules:
 
 - A reservation that includes a holiday but does not start or end on that holiday should receive a 17% discount off the total price. (A list of fictitious holidays is included below.)
@@ -14,12 +18,16 @@ product reqs:
 - lets have a banner on the search page, where we show the discount they would be getting
 - lets also have a small banner on the checkout page with the same
 - and obv have the correct price reflected on getQuote endpoint given the dates and outlined rules
-**
+
+--------------------------------------------------------------------------------------------------------
+
 lets add a test suite for the discount logic using vitest. include these test cases:
 - no discount
 - holiday rental
 - long rental
 - discount hierarchy, if both discount applied, ensure the better one wins
 - all four combinations for getApplicableDiscountTypes (none, holiday only, long rental only, both)
-**
+
+--------------------------------------------------------------------------------------------------------
+
 anything glaring that you would fix with our code, including things that were already there from the initial files?
