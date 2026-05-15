@@ -67,7 +67,7 @@ export function VehicleListItem({
               {formatCents(pricing.effectiveHourlyRateCents)}
               <span className="text-sm text-gray-700 font-normal ml-0.5">/hr</span>
             </p>
-            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium text-center">
               {pricing.discountLabel}
             </span>
           </>
