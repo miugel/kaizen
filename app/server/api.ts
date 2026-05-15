@@ -1,3 +1,4 @@
+import { calculatePricing } from "@/lib/pricing";
 import { DateTime } from "luxon";
 import {
   getAvailableVehicles,
@@ -25,19 +26,6 @@ const parseAndValidateTimeRange = (startTime: string, endTime: string) => {
   return { start, end };
 };
 
-const calculateTotalPrice = (
-  start: DateTime,
-  end: DateTime,
-  hourlyRateCents: number,
-) => {
-  const durationInHours = end.diff(start, "hours").hours || 0;
-
-  return {
-    totalPriceCents: hourlyRateCents * durationInHours,
-    hourlyRateCents,
-    durationInHours,
-  };
-};
 
 const validateReservationAndGetVehicle = (input: {
   vehicleId: string;
@@ -154,7 +142,7 @@ function getQuote(input: {
   endTime: string;
 }) {
   const { vehicle, start, end } = validateReservationAndGetVehicle(input);
-  return calculateTotalPrice(start, end, vehicle.hourly_rate_cents);
+  return calculatePricing(start.toJSDate(), end.toJSDate(), vehicle.hourly_rate_cents);
 }
 
 export const API = {

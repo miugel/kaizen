@@ -71,11 +71,22 @@ function Content() {
     { delimiter: ", " },
   );
 
+  const hasDiscount = quote.discountType !== "none";
+
   return (
     <div className="flex flex-col gap-8">
       <VehicleDetails vehicle={vehicle} />
 
       <Separator />
+
+      {hasDiscount && (
+        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3">
+          <p className="text-sm font-medium text-green-800">{quote.discountLabel}</p>
+          <p className="text-sm text-green-600 mt-0.5">
+            You save {formatCents(quote.savingsAmountCents)} on this reservation
+          </p>
+        </div>
+      )}
 
       <div className="space-y-6">
         <h3 className="text-2xl font-semibold mb-4">Reservation Summary</h3>
@@ -84,10 +95,24 @@ function Content() {
             <div>
               <dt className="text-sm text-gray-600">Hourly Rate</dt>
               <dd>
-                <span className="text-lg">
-                  {formatCents(vehicle.hourly_rate_cents)}
-                </span>
-                <span className="text-xs">/hr</span>
+                {hasDiscount ? (
+                  <>
+                    <span className="text-sm text-gray-400 line-through mr-1">
+                      {formatCents(vehicle.hourly_rate_cents)}/hr
+                    </span>
+                    <span className="text-lg">
+                      {formatCents(quote.effectiveHourlyRateCents)}
+                    </span>
+                    <span className="text-xs">/hr</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-lg">
+                      {formatCents(vehicle.hourly_rate_cents)}
+                    </span>
+                    <span className="text-xs">/hr</span>
+                  </>
+                )}
               </dd>
             </div>
             <div>

@@ -1,9 +1,10 @@
+import { Button } from "@/components/shared/ui/button";
+import { Card, CardTitle } from "@/components/shared/ui/card";
 import { formatCents } from "@/lib/formatters";
+import { calculatePricing } from "@/lib/pricing";
 import { Vehicle } from "@/server/data";
 import { useBase64Image } from "@/util/useBase64Image";
 import Link from "next/link";
-import { Button } from "@/components/shared/ui/button";
-import { Card, CardTitle } from "@/components/shared/ui/card";
 
 export function VehicleListItem({
   vehicle,
@@ -21,6 +22,8 @@ export function VehicleListItem({
   });
 
   const imgData = useBase64Image(vehicle.thumbnail_url);
+  const pricing = calculatePricing(startDateTime, endDateTime, vehicle.hourly_rate_cents);
+  const hasDiscount = pricing.discountType !== "none";
 
   return (
     <Card
@@ -53,11 +56,27 @@ export function VehicleListItem({
           </div>
         </dl>
       </div>
-      <div className="md:ml-auto text-center md:text-right flex flex-col justify-center mt-4 md:mt-0">
-        <p className="text-xl font-bold">
-          {formatCents(vehicle.hourly_rate_cents)}
-          <span className="text-sm text-gray-700 font-normal ml-0.5">/hr</span>
-        </p>
+      <div className="md:ml-auto text-center md:text-right flex flex-col justify-center items-center md:items-end mt-4 md:mt-0 gap-1">
+        {hasDiscount ? (
+          <>
+            <p className="text-sm text-gray-400 line-through">
+              {formatCents(vehicle.hourly_rate_cents)}
+              <span className="text-xs font-normal">/hr</span>
+            </p>
+            <p className="text-xl font-bold">
+              {formatCents(pricing.effectiveHourlyRateCents)}
+              <span className="text-sm text-gray-700 font-normal ml-0.5">/hr</span>
+            </p>
+            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+              {pricing.discountLabel}
+            </span>
+          </>
+        ) : (
+          <p className="text-xl font-bold">
+            {formatCents(vehicle.hourly_rate_cents)}
+            <span className="text-sm text-gray-700 font-normal ml-0.5">/hr</span>
+          </p>
+        )}
         <Button asChild className="mt-2 w-full sm:w-auto">
           <Link href={`/review?${bookNowParams.toString()}`}>
             Book now
