@@ -31,14 +31,13 @@ export function AdditionalFilters({ filterOptions }: { filterOptions: FilterOpti
             <div className="flex w-full items-baseline justify-between mb-4">
               <FormLabel>Price</FormLabel>
               <div className="text-sm">
-                {formatDollars(minPrice)} to{" "}
-                {maxPrice === 100 ? "$100+" : formatDollars(maxPrice)}
+                {formatDollars(minPrice)} to {formatDollars(maxPrice)}
               </div>
             </div>
             <FormControl>
               <RangeSlider
                 min={10}
-                max={100}
+                max={filterOptions.maxPriceDollars}
                 step={10}
                 value={field.value}
                 onValueChange={field.onChange}
